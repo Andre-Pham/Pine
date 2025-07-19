@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 export default function Index() {
   /*
    * Replace the elements below with your own.
@@ -14,6 +16,8 @@ export default function Index() {
       </div>
 
       <div className="w-12 h-12 bg-red-500" />
+
+      <Button>Hello World</Button>
     </div>
   );
 }
