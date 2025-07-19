@@ -8,7 +8,7 @@ const app = createExpressServer({
   validation: true, // enable class-validator auto-validation
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
   console.log(`API listening on http://localhost:${PORT}`);
 });
