@@ -18,6 +18,7 @@ import {
   Input,
 } from '@/components/ui';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const LoginSchema = z.object({
   email: z.email('Please enter a valid email'),
@@ -57,7 +58,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center">
       <Card className="w-full max-w-sm">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="m-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="mx-6">
             <h1 className="text-2xl font-bold text-center">Login</h1>
 
             <div className="space-y-4 mt-6">
@@ -103,9 +104,9 @@ export default function LoginPage() {
                 variant="outline"
                 type="button"
                 className="w-full"
-                onClick={() => router.push('/create-account')}
+                asChild
               >
-                Sign Up
+                <Link href={'/create-account'}>Create account</Link>
               </Button>
             </div>
           </form>
