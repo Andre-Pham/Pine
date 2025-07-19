@@ -14,8 +14,6 @@ export const lessonApi = createApi({
       const token = (getState() as RootState).auth.token;
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
-      } else {
-        console.log("NO TOKEN")
       }
       return headers;
     },
