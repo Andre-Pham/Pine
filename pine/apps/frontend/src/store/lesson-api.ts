@@ -9,6 +9,7 @@ import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 export const lessonApi = createApi({
   reducerPath: 'lesson-api',
+  tagTypes: ['lesson'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3003',
     prepareHeaders: async (headers, { getState }) => {
@@ -24,6 +25,7 @@ export const lessonApi = createApi({
       query: () => ({
         url: 'lesson/list',
       }),
+      providesTags: () => [{ type: 'lesson', id: 'list' }],
       transformResponse: (response) =>
         plainToInstance(ListLessonsResponse, response),
     }),
@@ -33,6 +35,10 @@ export const lessonApi = createApi({
         method: 'POST',
         body: instanceToPlain(params),
       }),
+      invalidatesTags: (response) => [
+        { type: 'lesson', id: 'list' },
+        { type: 'lesson', id: response?.id }
+      ]
     }),
   }),
 });
