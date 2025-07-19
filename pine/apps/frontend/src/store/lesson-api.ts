@@ -4,10 +4,22 @@ import type {
   CreateLessonResponse,
   ListLessonsResponse,
 } from '@pine/contracts';
+import type { RootState } from './index'  
 
 export const lessonApi = createApi({
   reducerPath: 'lesson-api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3003' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:3003',
+    prepareHeaders: async (headers, { getState }) => {
+      const token = (getState() as RootState).auth.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      } else {
+        console.log("NO TOKEN")
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     listLessons: builder.query<ListLessonsResponse, void>({
       query: () => 'lesson/list',

@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { tasksApi } from './tasksApi';
 import { lessonApi } from './lesson-api';
+import authReducer from './auth-slice' 
 
 export const store = configureStore({
   reducer: {
+    auth: authReducer,       
     [tasksApi.reducerPath]: tasksApi.reducer,
     [lessonApi.reducerPath]: lessonApi.reducer,
   },

@@ -1,19 +1,15 @@
-'use client';
-import { ReactNode, useState } from 'react';
-import { Provider } from 'react-redux';
-import { store } from '../store';
-import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
-import { SessionContextProvider } from '@supabase/auth-helpers-react';
+'use client'
+import { Provider } from 'react-redux'
+import { SessionContextProvider } from '@supabase/auth-helpers-react'
+import { supabase } from '../auth/supabase-client'
+import { store } from '../store'
 
-interface ProvidersProps {
-  children: ReactNode;
-}
-
-export default function Providers({ children }: ProvidersProps) {
-  const [supabaseClient] = useState(() => createPagesBrowserClient());
+export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <SessionContextProvider supabaseClient={supabaseClient}>
-      <Provider store={store}>{children}</Provider>;
+    <SessionContextProvider supabaseClient={supabase}>
+      <Provider store={store}>
+        {children}
+      </Provider>
     </SessionContextProvider>
-  );
+  )
 }
