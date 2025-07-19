@@ -30,6 +30,7 @@ export default function DashboardPage() {
 
   const [deletingId, setDeletingId] = useState<string>();
   const [updatingId, setUpdatingId] = useState<string>();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const [updateLesson] = useUpdateLessonMutation();
   const [deleteLesson] = useDeleteLessonMutation();
@@ -41,15 +42,15 @@ export default function DashboardPage() {
   const lessons = lessonsResponse?.lessons ?? [];
 
   const handleUpdateLesson = async (id: string, isCompleted: boolean) => {
-    setUpdatingId(id)
+    setUpdatingId(id);
     const { error } = await updateLesson(
       new UpdateLessonRequest(id, undefined, isCompleted)
     );
     // Refetch so state is reflected immediately upon loading being completed
     await refetchLessons();
-    setUpdatingId(undefined)
+    setUpdatingId(undefined);
     if (error) {
-      toast('Failed to update lesson');
+      toast.error('Failed to update lesson');
       return;
     }
   };
@@ -61,14 +62,20 @@ export default function DashboardPage() {
     await refetchLessons();
     setDeletingId(undefined);
     if (error) {
-      toast('Failed to delete lesson');
+      toast.error('Failed to delete lesson');
       return;
     }
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/login');
+    setIsLoggingOut(true);
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error(error.message);
+      setIsLoggingOut(false);
+    } else {
+      router.push('/login');
+    }
   };
 
   return (
@@ -77,7 +84,9 @@ export default function DashboardPage() {
         <h1 className="text-4xl font-bold">Lessons dashboard</h1>
         <div className="flex items-center gap-2">
           <CreateLessonDialog />
-          <Button onClick={handleLogout}>Logout</Button>
+          <Button onClick={handleLogout} isLoading={isLoggingOut}>
+            Logout
+          </Button>
         </div>
       </div>
 

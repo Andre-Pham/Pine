@@ -53,7 +53,7 @@ export const CreateLessonDialog: React.FC = () => {
   const onSubmit = async (data: CreateLessonFormValues) => {
     const { error } = await createLesson(new CreateLessonRequest(data.name));
     if (error) {
-      toast('Failed to create lesson');
+      toast.error('Failed to create lesson');
       return;
     }
     setDialogOpen(false);
