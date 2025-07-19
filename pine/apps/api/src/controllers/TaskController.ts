@@ -1,6 +1,6 @@
-import { JsonController, Get, Post, Param, Body } from 'routing-controllers';
-import { TaskRepository } from 'domain'; // import from our domain lib (to create next)
-import { TaskContract } from 'contracts'; // import types from contracts lib
+import { JsonController, Get, Post, Body } from 'routing-controllers';
+import { TaskRepository } from '@pine/domain';
+import { TaskContract } from '@pine/contracts';
 
 @JsonController('/tasks')
 export class TaskController {
@@ -17,6 +17,4 @@ export class TaskController {
     // We expect payload to contain at least a title (Task title)
     return await this.repo.add(payload);
   }
-
-  // (You could add other endpoints: e.g. delete or toggle complete status)
 }
