@@ -15,6 +15,7 @@ import {
 } from '@/components/ui';
 import { CreateLessonDialog } from './components';
 import { Check, Trash2 } from 'lucide-react';
+import { format } from "date-fns";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function DashboardPage() {
               <CardHeader>
                 <CardTitle>{lesson.name}</CardTitle>
                 <CardDescription>
-                  Created {lesson.createdAt.toLocaleString()}
+                  Created {format(new Date(lesson.createdAt), "do MMMM, h:mm a")}
                 </CardDescription>
                 <CardAction>
                   <Button
