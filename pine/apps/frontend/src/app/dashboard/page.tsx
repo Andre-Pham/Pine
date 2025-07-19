@@ -1,23 +1,28 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useListLessonsQuery } from '@/store/lesson-api';
 import {
-  useCreateLessonMutation,
-  useListLessonsQuery,
-} from '@/store/lesson-api';
-import { CreateLessonRequest } from '@pine/contracts';
-import { Button } from '@/components/ui';
+  Button,
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  LoadingSpinnerCentered,
+} from '@/components/ui';
+import { CreateLessonDialog } from './components';
+import { Check, Trash2 } from 'lucide-react';
 
 export default function DashboardPage() {
   const router = useRouter();
   const supabase = useSupabaseClient();
-  const session = useSession();
 
-  const { data, isLoading } = useListLessonsQuery();
-
-  const [createLesson, { isLoading: isCreateLessonLoading }] =
-    useCreateLessonMutation();
+  const { data: lessonsResponse, isLoading: isLessonsLoading } =
+    useListLessonsQuery();
+  const lessons = lessonsResponse?.lessons ?? [];
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -25,21 +30,56 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center space-y-4">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
-      {isLoading || isCreateLessonLoading ? <>Loading</> : <>Loaded</>}
-      <div>{JSON.stringify(data)}</div>
-      <Button
-        onClick={async () => {
-          await createLesson(new CreateLessonRequest('New lesson'));
-        }}
-      >
-        Create
-      </Button>
-      <button onClick={handleLogout} className="btn-primary">
-        Logout
-      </button>
-      <div className="mt-8">{JSON.stringify(session?.user, null, 2)}</div>
+    <div className="max-w-4xl mx-auto my-32">
+      <div className="flex justify-between flex-wrap mx-8 gap-2">
+        <h1 className="text-4xl font-bold">Lessons dashboard</h1>
+        <div className="flex items-center gap-2">
+          <CreateLessonDialog />
+          <Button onClick={handleLogout}>Logout</Button>
+        </div>
+      </div>
+
+      {isLessonsLoading ? (
+        <LoadingSpinnerCentered height="200px" />
+      ) : (
+        <div className="mt-6 flex flex-col gap-4 mx-8">
+          {lessons.map((lesson) => (
+            <Card key={lesson.id} className='gap-4'>
+              <CardHeader>
+                <CardTitle>{lesson.name}</CardTitle>
+                <CardDescription>
+                  Created {lesson.createdAt.toLocaleString()}
+                </CardDescription>
+                <CardAction>
+                  <Button
+                    variant="link"
+                    leftElement={<Trash2 />}
+                    className="text-red-700"
+                  >
+                    Delete
+                  </Button>
+                </CardAction>
+              </CardHeader>
+              {lesson.completedAt ? (
+                <CardContent>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      className="bg-green-600"
+                      leftElement={<Check className="size-4" />}
+                    >
+                      Completed!
+                    </Button>
+                  </div>
+                </CardContent>
+              ) : (
+                <CardContent>
+                  <Button>Mark as complete</Button>
+                </CardContent>
+              )}
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

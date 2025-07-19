@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui';
 import './global.css';
 import Providers from './providers';
 
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
