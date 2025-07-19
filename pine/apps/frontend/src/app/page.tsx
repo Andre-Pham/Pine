@@ -2,8 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { useListTasksQuery } from "@/store/tasksApi";
+import { redirect } from "next/navigation";
 
 export default function Index() {
+  redirect('/login')
   const { data } = useListTasksQuery()
 
   console.log(JSON.stringify(data))
