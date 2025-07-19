@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 export interface TaskContract {
   id: string;
   title: string;

@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type {
+import {
   CreateLessonRequest,
   CreateLessonResponse,
   ListLessonsResponse,
 } from '@pine/contracts';
-import type { RootState } from './index'  
+import type { RootState } from './index';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 export const lessonApi = createApi({
   reducerPath: 'lesson-api',
@@ -20,13 +21,17 @@ export const lessonApi = createApi({
   }),
   endpoints: (builder) => ({
     listLessons: builder.query<ListLessonsResponse, void>({
-      query: () => 'lesson/list',
+      query: () => ({
+        url: 'lesson/list',
+      }),
+      transformResponse: (response) =>
+        plainToInstance(ListLessonsResponse, response),
     }),
     createLesson: builder.mutation<CreateLessonResponse, CreateLessonRequest>({
-      query: (newTask) => ({
+      query: (params) => ({
         url: 'lesson/create',
         method: 'POST',
-        body: newTask,
+        body: instanceToPlain(params),
       }),
     }),
   }),
