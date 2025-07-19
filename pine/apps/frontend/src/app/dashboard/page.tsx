@@ -145,6 +145,12 @@ export default function DashboardPage() {
           ))}
         </div>
       )}
+
+      {!isLessonsLoading && lessons.length === 0 ? (
+        <div className="flex flex-col text-center justify-center mx-8 bg-slate-50 rounded-lg h-32">
+          <p className='text-gray-400'>Your lessons will appear here</p>
+        </div>
+      ) : null}
     </div>
   );
 }
