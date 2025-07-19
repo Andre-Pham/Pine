@@ -1,15 +1,15 @@
 import { Type } from 'class-transformer';
 
 export class CreateLessonResponse {
-  id: string;
-  userId: string;
-  name: string;
+  readonly id: string;
+  readonly userId: string;
+  readonly name: string;
   @Type(() => Date)
-  createdAt: Date;
+  readonly createdAt: Date;
   @Type(() => Date)
-  completedAt: Date | undefined;
+  readonly completedAt: Date | undefined;
   @Type(() => Date)
-  deletedAt: Date | undefined;
+  readonly deletedAt: Date | undefined;
 
   constructor(
     id: string,

@@ -5,16 +5,20 @@ import {
   Body,
   CurrentUser,
   Authorized,
+  OnUndefined,
 } from 'routing-controllers';
 import { LessonRepository } from '@pine/domain';
 import {
   CreateLessonRequest,
   CreateLessonResponse,
+  DeleteLessonRequest,
   Lesson,
   ListLessonsResponse,
   ListLessonsResponsePayload,
+  UpdateLessonRequest,
 } from '@pine/contracts';
 import { v4 } from 'uuid';
+import { StatusCodes } from 'http-status-codes';
 
 @JsonController('/lesson')
 export class LessonController {
@@ -34,8 +38,7 @@ export class LessonController {
             lesson.userId,
             lesson.name,
             lesson.createdAt,
-            lesson.completedAt,
-            lesson.deletedAt
+            lesson.completedAt
           )
       )
     );
@@ -56,5 +59,30 @@ export class LessonController {
       deletedAt: undefined,
     };
     return this.lessonRepository.create(lesson);
+  }
+
+  @Post('/update')
+  @Authorized()
+  @OnUndefined(StatusCodes.NO_CONTENT)
+  async update(
+    @CurrentUser() user: { id: string },
+    @Body() payload: UpdateLessonRequest
+  ) {
+    this.lessonRepository.update(
+      payload.id,
+      user.id,
+      undefined,
+      payload.isComplete
+    );
+  }
+
+  @Post('/delete')
+  @Authorized()
+  @OnUndefined(StatusCodes.NO_CONTENT)
+  async delete(
+    @CurrentUser() user: { id: string },
+    @Body() payload: DeleteLessonRequest
+  ) {
+    this.lessonRepository.delete(payload.id, user.id)
   }
 }

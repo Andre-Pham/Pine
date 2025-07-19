@@ -6,7 +6,9 @@ export class LessonRepository {
     const { data, error } = await supabase
       .from('lesson')
       .select('*')
-      .eq('user_id', userId);
+      .eq('user_id', userId)
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false });
     if (error) throw new Error(error.message);
     return data.map((lesson) => ({
       id: lesson.id,
@@ -34,5 +36,36 @@ export class LessonRepository {
       .single();
     if (error) throw new Error(error.message);
     return data;
+  }
+
+  async update(
+    id: string,
+    userId: string,
+    name: string | undefined,
+    isCompleted: boolean | undefined
+  ): Promise<void> {
+    if (name === undefined && isCompleted === undefined) {
+      return;
+    }
+    const { error } = await supabase
+      .from('lesson')
+      .update({
+        ...(name !== undefined ? { lesson_name: name } : {}),
+        ...(isCompleted !== undefined
+          ? { completed_at: isCompleted ? new Date().toISOString() : null }
+          : {}),
+      })
+      .eq('id', id)
+      .eq('user_id', userId);
+    if (error) throw new Error(error.message);
+  }
+
+  async delete(id: string, userId: string): Promise<void> {
+    const { error } = await supabase
+      .from('lesson')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('id', id)
+      .eq('user_id', userId);
+    if (error) throw new Error(error.message);
   }
 }

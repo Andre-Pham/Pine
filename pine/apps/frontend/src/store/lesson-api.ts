@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   CreateLessonRequest,
   CreateLessonResponse,
+  DeleteLessonRequest,
   ListLessonsResponse,
+  UpdateLessonRequest,
 } from '@pine/contracts';
 import type { RootState } from './index';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
@@ -37,10 +39,32 @@ export const lessonApi = createApi({
       }),
       invalidatesTags: (response) => [
         { type: 'lesson', id: 'list' },
-        { type: 'lesson', id: response?.id }
-      ]
+        { type: 'lesson', id: response?.id },
+      ],
+    }),
+    updateLesson: builder.mutation<void, UpdateLessonRequest>({
+      query: (params) => ({
+        url: 'lesson/update',
+        method: 'POST',
+        body: instanceToPlain(params),
+      }),
+      invalidatesTags: (_, __, request) => [
+        { type: 'lesson', id: 'list' },
+        { type: 'lesson', id: request?.id },
+      ],
+    }),
+    deleteLesson: builder.mutation<void, DeleteLessonRequest>({
+      query: (params) => ({
+        url: 'lesson/delete',
+        method: 'POST',
+        body: instanceToPlain(params),
+      }),
+      invalidatesTags: (_, __, request) => [
+        { type: 'lesson', id: 'list' },
+        { type: 'lesson', id: request?.id },
+      ],
     }),
   }),
 });
 
-export const { useListLessonsQuery, useCreateLessonMutation } = lessonApi;
+export const { useListLessonsQuery, useCreateLessonMutation, useUpdateLessonMutation, useDeleteLessonMutation } = lessonApi;

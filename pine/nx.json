@@ -70,5 +70,8 @@
         "linter": "eslint"
       }
     }
+  },
+  "tui": {
+    "enabled": false
   }
 }

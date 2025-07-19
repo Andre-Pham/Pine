@@ -2,15 +2,13 @@ import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 
 export class ListLessonsResponsePayload {
-  id: string;
-  userId: string;
-  name: string;
+  readonly id: string;
+  readonly userId: string;
+  readonly name: string;
   @Type(() => Date)
-  createdAt: Date;
+  readonly createdAt: Date;
   @Type(() => Date)
-  completedAt: Date | undefined;
-  @Type(() => Date)
-  deletedAt: Date | undefined;
+  readonly completedAt: Date | undefined;
 
   constructor(
     id: string,
@@ -18,14 +16,12 @@ export class ListLessonsResponsePayload {
     name: string,
     createdAt: Date,
     completedAt: Date | undefined,
-    deletedAt: Date | undefined
   ) {
     this.id = id;
     this.userId = userId;
     this.name = name;
     this.createdAt = createdAt;
     this.completedAt = completedAt;
-    this.deletedAt = deletedAt;
   }
 }
 
