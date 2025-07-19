@@ -3,7 +3,7 @@ import type { TaskContract } from '@pine/contracts';
 
 export const tasksApi = createApi({
   reducerPath: 'tasksApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3003/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3003' }),
   endpoints: (builder) => ({
     listTasks: builder.query<TaskContract[], void>({
       query: () => 'tasks',

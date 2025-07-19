@@ -1,8 +1,10 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { useListTasksQuery } from "@/store/tasksApi";
 
 export default function Index() {
-  const { data, isLoading } = useListTasksQuery()
+  const { data } = useListTasksQuery()
 
   console.log(JSON.stringify(data))
 
