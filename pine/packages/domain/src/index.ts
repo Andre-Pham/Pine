@@ -24,3 +24,5 @@ export class TaskRepository {
     };
   }
 }
+
+export * from './lib'

@@ -10,3 +10,5 @@ export interface UserContract {
   id: string;
   email: string;
 }
+
+export * from './lib'
