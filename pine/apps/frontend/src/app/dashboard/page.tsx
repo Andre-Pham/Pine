@@ -22,23 +22,32 @@ import { CircleCheck, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { DeleteLessonRequest, UpdateLessonRequest } from '@pine/contracts';
 import { toast } from 'sonner';
+import { useState } from 'react';
 
 export default function DashboardPage() {
   const router = useRouter();
   const supabase = useSupabaseClient();
 
-  const [updateLesson, { isLoading: isUpdateLessonLoading }] =
-    useUpdateLessonMutation();
-  const [deleteLesson, { isLoading: isDeleteLessonLoading }] =
-    useDeleteLessonMutation();
-  const { data: lessonsResponse, isLoading: isLessonsLoading } =
-    useListLessonsQuery();
+  const [deletingId, setDeletingId] = useState<string>();
+  const [updatingId, setUpdatingId] = useState<string>();
+
+  const [updateLesson] = useUpdateLessonMutation();
+  const [deleteLesson] = useDeleteLessonMutation();
+  const {
+    data: lessonsResponse,
+    refetch: refetchLessons,
+    isLoading: isLessonsLoading,
+  } = useListLessonsQuery();
   const lessons = lessonsResponse?.lessons ?? [];
 
   const handleUpdateLesson = async (id: string, isCompleted: boolean) => {
+    setUpdatingId(id)
     const { error } = await updateLesson(
       new UpdateLessonRequest(id, undefined, isCompleted)
     );
+    // Refetch so state is reflected immediately upon loading being completed
+    await refetchLessons();
+    setUpdatingId(undefined)
     if (error) {
       toast('Failed to update lesson');
       return;
@@ -46,7 +55,11 @@ export default function DashboardPage() {
   };
 
   const handleDeleteLesson = async (id: string) => {
+    setDeletingId(id);
     const { error } = await deleteLesson(new DeleteLessonRequest(id));
+    // Refetch so state is reflected immediately upon loading being completed
+    await refetchLessons();
+    setDeletingId(undefined);
     if (error) {
       toast('Failed to delete lesson');
       return;
@@ -88,7 +101,7 @@ export default function DashboardPage() {
                     onClick={async () => {
                       await handleDeleteLesson(lesson.id);
                     }}
-                    isLoading={isDeleteLessonLoading}
+                    isLoading={deletingId === lesson.id}
                   >
                     Delete
                   </Button>
@@ -103,7 +116,7 @@ export default function DashboardPage() {
                       onClick={async () => {
                         await handleUpdateLesson(lesson.id, false);
                       }}
-                      isLoading={isUpdateLessonLoading}
+                      isLoading={updatingId === lesson.id}
                     >
                       Completed!
                     </Button>
@@ -113,7 +126,7 @@ export default function DashboardPage() {
                     onClick={async () => {
                       await handleUpdateLesson(lesson.id, true);
                     }}
-                    isLoading={isUpdateLessonLoading}
+                    isLoading={updatingId === lesson.id}
                   >
                     Mark as complete
                   </Button>
