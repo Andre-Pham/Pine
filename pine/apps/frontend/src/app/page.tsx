@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { useListTasksQuery } from "@/store/tasksApi";
 
 export default function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.css file.
-   */
+  const { data, isLoading } = useListTasksQuery()
+
+  console.log(JSON.stringify(data))
+
   return (
     <div>
       <div>
