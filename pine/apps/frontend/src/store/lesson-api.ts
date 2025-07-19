@@ -67,4 +67,9 @@ export const lessonApi = createApi({
   }),
 });
 
-export const { useListLessonsQuery, useCreateLessonMutation, useUpdateLessonMutation, useDeleteLessonMutation } = lessonApi;
+export const {
+  useListLessonsQuery,
+  useCreateLessonMutation,
+  useUpdateLessonMutation,
+  useDeleteLessonMutation,
+} = lessonApi;

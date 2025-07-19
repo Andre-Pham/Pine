@@ -1,7 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import {
   useDeleteLessonMutation,
   useListLessonsQuery,
@@ -23,14 +21,13 @@ import { format } from 'date-fns';
 import { DeleteLessonRequest, UpdateLessonRequest } from '@pine/contracts';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { useLogout } from '@/auth/use-logout';
 
 export default function DashboardPage() {
-  const router = useRouter();
-  const supabase = useSupabaseClient();
+  const { logout, isLoggingOut } = useLogout();
 
   const [deletingId, setDeletingId] = useState<string>();
   const [updatingId, setUpdatingId] = useState<string>();
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const [updateLesson] = useUpdateLessonMutation();
   const [deleteLesson] = useDeleteLessonMutation();
@@ -67,24 +64,13 @@ export default function DashboardPage() {
     }
   };
 
-  const handleLogout = async () => {
-    setIsLoggingOut(true);
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      toast.error(error.message);
-      setIsLoggingOut(false);
-    } else {
-      router.push('/login');
-    }
-  };
-
   return (
     <div className="max-w-4xl mx-auto my-32">
       <div className="flex justify-between flex-wrap mx-8 gap-2">
         <h1 className="text-4xl font-bold">Lessons dashboard</h1>
         <div className="flex items-center gap-2">
           <CreateLessonDialog />
-          <Button onClick={handleLogout} isLoading={isLoggingOut}>
+          <Button onClick={logout} isLoading={isLoggingOut}>
             Logout
           </Button>
         </div>
@@ -148,7 +134,7 @@ export default function DashboardPage() {
 
       {!isLessonsLoading && lessons.length === 0 ? (
         <div className="flex flex-col text-center justify-center mx-8 bg-slate-50 rounded-lg h-32">
-          <p className='text-gray-400'>Your lessons will appear here</p>
+          <p className="text-gray-400">Your lessons will appear here</p>
         </div>
       ) : null}
     </div>
