@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { createExpressServer, Action } from "routing-controllers";
 import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
-import { LessonController, TaskController } from "./controllers";
+import { LessonController } from "./controllers";
 
 dotenv.config();
 const supabase = createClient(
@@ -11,7 +11,7 @@ const supabase = createClient(
 );
 
 const app = createExpressServer({
-  controllers: [TaskController, LessonController],
+  controllers: [LessonController],
   cors: true,
   validation: true,
   authorizationChecker: async (action: Action) => {
