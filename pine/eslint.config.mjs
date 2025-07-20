@@ -17,6 +17,15 @@ export default [
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-var": "error",
       "prefer-const": "error",
+      "capitalized-comments": [
+        "error",
+        "always",
+        {
+          ignorePattern: "pragma|eslint|jscs|istanbul",
+          ignoreConsecutiveComments: true,
+          ignoreInlineComments: false
+        }
+      ]
     },
   },
 ];

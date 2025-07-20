@@ -1,4 +1,5 @@
 "use client";
+
 import { Provider } from "react-redux";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { supabase } from "../auth/supabase-client";

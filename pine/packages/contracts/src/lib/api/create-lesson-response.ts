@@ -2,12 +2,17 @@ import { Type } from "class-transformer";
 
 export class CreateLessonResponse {
   readonly id: string;
+  
   readonly userId: string;
+
   readonly name: string;
+
   @Type(() => Date)
   readonly createdAt: Date;
+
   @Type(() => Date)
   readonly completedAt: Date | undefined;
+
   @Type(() => Date)
   readonly deletedAt: Date | undefined;
 

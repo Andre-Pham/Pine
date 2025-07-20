@@ -1,5 +1,6 @@
 import { Lesson } from "@pine/contracts";
-import { supabase } from "./supabase/client";
+import { supabase } from "../supabase/client";
+import { v4 } from "uuid";
 
 export class LessonRepository {
   async list(userId: string): Promise<Lesson[]> {
@@ -22,16 +23,16 @@ export class LessonRepository {
     }));
   }
 
-  async create(lesson: Lesson): Promise<Lesson> {
+  async create(userId: string, name: string): Promise<Lesson> {
     const { data, error } = await supabase
       .from("lesson")
       .insert({
-        id: lesson.id,
-        user_id: lesson.userId,
-        lesson_name: lesson.name,
-        created_at: lesson.createdAt.toISOString(),
-        completed_at: lesson.completedAt?.toISOString() ?? undefined,
-        deleted_at: lesson.deletedAt?.toISOString() ?? undefined,
+        id: v4(),
+        user_id: userId,
+        lesson_name: name,
+        created_at: new Date().toISOString(),
+        completed_at: undefined,
+        deleted_at: undefined,
       })
       .single();
     if (error) throw new Error(error.message);

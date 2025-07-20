@@ -3,10 +3,14 @@ import { ValidateNested } from "class-validator";
 
 export class ListLessonsResponsePayload {
   readonly id: string;
+  
   readonly userId: string;
+
   readonly name: string;
+
   @Type(() => Date)
   readonly createdAt: Date;
+
   @Type(() => Date)
   readonly completedAt: Date | undefined;
 

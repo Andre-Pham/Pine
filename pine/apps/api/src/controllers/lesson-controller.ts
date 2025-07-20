@@ -12,12 +12,10 @@ import {
   CreateLessonRequest,
   CreateLessonResponse,
   DeleteLessonRequest,
-  Lesson,
   ListLessonsResponse,
   ListLessonsResponsePayload,
   UpdateLessonRequest,
 } from "@pine/contracts";
-import { v4 } from "uuid";
 import { StatusCodes } from "http-status-codes";
 
 @JsonController("/lesson")
@@ -50,15 +48,7 @@ export class LessonController {
     @CurrentUser() user: { id: string },
     @Body() payload: CreateLessonRequest
   ): Promise<CreateLessonResponse> {
-    const lesson: Lesson = {
-      id: v4(),
-      userId: user.id,
-      name: payload.name,
-      createdAt: new Date(),
-      completedAt: undefined,
-      deletedAt: undefined,
-    };
-    return this.lessonRepository.create(lesson);
+    return this.lessonRepository.create(user.id, payload.name);
   }
 
   @Post("/update")
