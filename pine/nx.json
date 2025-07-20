@@ -24,8 +24,7 @@
           "watchDepsName": "watch-deps"
         }
       },
-      "exclude": ["packages/contracts/*", "packages/domain/*"]
-    },
+      },
     {
       "plugin": "@nx/next/plugin",
       "options": {
@@ -53,15 +52,7 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-    {
-      "plugin": "@nx/js/typescript",
-      "include": ["packages/contracts/*", "packages/domain/*"],
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck"
-        }
-      }
-    }
+    
   ],
   "generators": {
     "@nx/next": {

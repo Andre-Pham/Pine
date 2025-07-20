@@ -2,7 +2,11 @@
   "name": "@pine/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "npx nx run-many --target=build",
+    "lint": "nx run-many --target=lint --all",
+    "prettier": "prettier --write ."
+  },
   "private": true,
   "dependencies": {
     "axios": "^1.6.0",
