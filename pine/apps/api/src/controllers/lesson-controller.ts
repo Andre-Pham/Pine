@@ -6,8 +6,8 @@ import {
   CurrentUser,
   Authorized,
   OnUndefined,
-} from 'routing-controllers';
-import { LessonRepository } from '@pine/domain';
+} from "routing-controllers";
+import { LessonRepository } from "@pine/domain";
 import {
   CreateLessonRequest,
   CreateLessonResponse,
@@ -16,15 +16,15 @@ import {
   ListLessonsResponse,
   ListLessonsResponsePayload,
   UpdateLessonRequest,
-} from '@pine/contracts';
-import { v4 } from 'uuid';
-import { StatusCodes } from 'http-status-codes';
+} from "@pine/contracts";
+import { v4 } from "uuid";
+import { StatusCodes } from "http-status-codes";
 
-@JsonController('/lesson')
+@JsonController("/lesson")
 export class LessonController {
   private lessonRepository = new LessonRepository();
 
-  @Get('/list')
+  @Get("/list")
   @Authorized()
   async list(
     @CurrentUser() user: { id: string }
@@ -44,7 +44,7 @@ export class LessonController {
     );
   }
 
-  @Post('/create')
+  @Post("/create")
   @Authorized()
   async create(
     @CurrentUser() user: { id: string },
@@ -61,7 +61,7 @@ export class LessonController {
     return this.lessonRepository.create(lesson);
   }
 
-  @Post('/update')
+  @Post("/update")
   @Authorized()
   @OnUndefined(StatusCodes.NO_CONTENT)
   async update(
@@ -76,13 +76,13 @@ export class LessonController {
     );
   }
 
-  @Post('/delete')
+  @Post("/delete")
   @Authorized()
   @OnUndefined(StatusCodes.NO_CONTENT)
   async delete(
     @CurrentUser() user: { id: string },
     @Body() payload: DeleteLessonRequest
   ) {
-    this.lessonRepository.delete(payload.id, user.id)
+    this.lessonRepository.delete(payload.id, user.id);
   }
 }

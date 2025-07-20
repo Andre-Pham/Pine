@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
 import {
   useDeleteLessonMutation,
   useListLessonsQuery,
   useUpdateLessonMutation,
-} from '@/store/lesson-api';
+} from "@/store/lesson-api";
 import {
   Button,
   Card,
@@ -14,14 +14,14 @@ import {
   CardHeader,
   CardTitle,
   LoadingSpinnerCentered,
-} from '@/components/ui';
-import { CreateLessonDialog } from './components';
-import { CircleCheck, Trash2 } from 'lucide-react';
-import { format } from 'date-fns';
-import { DeleteLessonRequest, UpdateLessonRequest } from '@pine/contracts';
-import { toast } from 'sonner';
-import { useState } from 'react';
-import { useLogout } from '@/auth/use-logout';
+} from "@/components/ui";
+import { CreateLessonDialog } from "./components";
+import { CircleCheck, Trash2 } from "lucide-react";
+import { format } from "date-fns";
+import { DeleteLessonRequest, UpdateLessonRequest } from "@pine/contracts";
+import { toast } from "sonner";
+import { useState } from "react";
+import { useLogout } from "@/auth/use-logout";
 
 export default function DashboardPage() {
   const { logout, isLoggingOut } = useLogout();
@@ -47,7 +47,7 @@ export default function DashboardPage() {
     await refetchLessons();
     setUpdatingId(undefined);
     if (error) {
-      toast.error('Failed to update lesson');
+      toast.error("Failed to update lesson");
       return;
     }
   };
@@ -59,7 +59,7 @@ export default function DashboardPage() {
     await refetchLessons();
     setDeletingId(undefined);
     if (error) {
-      toast.error('Failed to delete lesson');
+      toast.error("Failed to delete lesson");
       return;
     }
   };
@@ -85,8 +85,7 @@ export default function DashboardPage() {
               <CardHeader>
                 <CardTitle>{lesson.name}</CardTitle>
                 <CardDescription>
-                  Created{' '}
-                  {format(new Date(lesson.createdAt), 'd MMMM, h:mm a')}
+                  Created {format(new Date(lesson.createdAt), "d MMMM, h:mm a")}
                 </CardDescription>
                 <CardAction>
                   <Button

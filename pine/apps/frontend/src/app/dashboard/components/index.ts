@@ -1,1 +1,1 @@
-export * from './create-lesson-dialog';
+export * from "./create-lesson-dialog";

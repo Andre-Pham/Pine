@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { toast } from 'sonner';
+import { useRouter } from "next/navigation";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "sonner";
 import {
   Button,
   Card,
@@ -16,16 +16,16 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from '@/components/ui';
-import { useState } from 'react';
-import Link from 'next/link';
+} from "@/components/ui";
+import { useState } from "react";
+import Link from "next/link";
 
 const CreateAccountSchema = z.object({
-  email: z.email('Please enter a valid email'),
+  email: z.email("Please enter a valid email"),
   password: z
     .string()
-    .min(1, 'Password is required')
-    .min(6, 'Password must be at least 6 characters long'),
+    .min(1, "Password is required")
+    .min(6, "Password must be at least 6 characters long"),
 });
 type CreateAccountFormValues = z.infer<typeof CreateAccountSchema>;
 
@@ -38,8 +38,8 @@ export default function CreateAccountPage() {
   const form = useForm<CreateAccountFormValues>({
     resolver: zodResolver(CreateAccountSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -53,7 +53,7 @@ export default function CreateAccountPage() {
       toast.error(error.message);
       setIsSigningUp(false);
     } else {
-      router.push('/dashboard');
+      router.push("/dashboard");
     }
   };
 
@@ -109,7 +109,7 @@ export default function CreateAccountPage() {
                 className="w-full"
                 asChild
               >
-                <Link href={'/login'}>Back to login</Link>
+                <Link href={"/login"}>Back to login</Link>
               </Button>
             </div>
           </form>

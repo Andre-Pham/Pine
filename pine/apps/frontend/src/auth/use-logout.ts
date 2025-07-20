@@ -1,9 +1,9 @@
-import { supabase } from './supabase-client';
-import { lessonApi } from '@/store/lesson-api';
-import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
-import { useCallback, useState } from 'react';
-import { toast } from 'sonner';
+import { supabase } from "./supabase-client";
+import { lessonApi } from "@/store/lesson-api";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { useCallback, useState } from "react";
+import { toast } from "sonner";
 
 export const useLogout = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ export const useLogout = () => {
       setIsLoggingOut(false);
     } else {
       dispatch(lessonApi.util.resetApiState());
-      router.push('/login');
+      router.push("/login");
     }
   }, [dispatch, router]);
 

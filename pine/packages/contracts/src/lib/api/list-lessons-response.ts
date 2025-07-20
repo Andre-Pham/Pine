@@ -1,5 +1,5 @@
-import { Type } from 'class-transformer';
-import { ValidateNested } from 'class-validator';
+import { Type } from "class-transformer";
+import { ValidateNested } from "class-validator";
 
 export class ListLessonsResponsePayload {
   readonly id: string;
@@ -15,7 +15,7 @@ export class ListLessonsResponsePayload {
     userId: string,
     name: string,
     createdAt: Date,
-    completedAt: Date | undefined,
+    completedAt: Date | undefined
   ) {
     this.id = id;
     this.userId = userId;

@@ -13,4 +13,4 @@ export interface UserContract {
   email: string;
 }
 
-export * from './lib'
+export * from "./lib";

@@ -1,10 +1,10 @@
-import { Toaster } from '@/components/ui';
-import './global.css';
-import Providers from './providers';
+import { Toaster } from "@/components/ui";
+import "./global.css";
+import Providers from "./providers";
 
 export const metadata = {
-  title: 'TODO',
-  description: 'TODO',
+  title: "TODO",
+  description: "TODO",
 };
 
 export default function RootLayout({

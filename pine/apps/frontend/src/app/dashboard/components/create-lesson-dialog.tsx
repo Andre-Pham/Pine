@@ -1,10 +1,10 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useCreateLessonMutation } from '@/store/lesson-api';
-import { useState } from 'react';
-import { CreateLessonRequest } from '@pine/contracts';
-import { toast } from 'sonner';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useCreateLessonMutation } from "@/store/lesson-api";
+import { useState } from "react";
+import { CreateLessonRequest } from "@pine/contracts";
+import { toast } from "sonner";
 import {
   Button,
   Dialog,
@@ -21,11 +21,11 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from '@/components/ui';
-import { Plus } from 'lucide-react';
+} from "@/components/ui";
+import { Plus } from "lucide-react";
 
 const CreateLessonSchema = z.object({
-  name: z.string().min(1, 'Name must not be empty'),
+  name: z.string().min(1, "Name must not be empty"),
 });
 type CreateLessonFormValues = z.infer<typeof CreateLessonSchema>;
 
@@ -37,14 +37,14 @@ export const CreateLessonDialog: React.FC = () => {
   const form = useForm<CreateLessonFormValues>({
     resolver: zodResolver(CreateLessonSchema),
     defaultValues: {
-      name: '',
+      name: "",
     },
   });
 
   const setDialogOpen = (isOpen: boolean) => {
     if (isOpen) {
       form.reset({
-        name: '',
+        name: "",
       });
     }
     setIsOpen(isOpen);
@@ -53,7 +53,7 @@ export const CreateLessonDialog: React.FC = () => {
   const onSubmit = async (data: CreateLessonFormValues) => {
     const { error } = await createLesson(new CreateLessonRequest(data.name));
     if (error) {
-      toast.error('Failed to create lesson');
+      toast.error("Failed to create lesson");
       return;
     }
     setDialogOpen(false);
@@ -71,7 +71,10 @@ export const CreateLessonDialog: React.FC = () => {
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 mt-2">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 mt-2"
+          >
             <FormField
               control={form.control}
               name="name"

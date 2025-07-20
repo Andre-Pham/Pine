@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { tasksApi } from './tasksApi';
-import { lessonApi } from './lesson-api';
-import authReducer from './auth-slice';
+import { configureStore } from "@reduxjs/toolkit";
+import { tasksApi } from "./tasksApi";
+import { lessonApi } from "./lesson-api";
+import authReducer from "./auth-slice";
 
 export const store = configureStore({
   reducer: {

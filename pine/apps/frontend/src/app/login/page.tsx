@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { toast } from 'sonner';
+import { useRouter } from "next/navigation";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "sonner";
 import {
   Button,
   Card,
@@ -16,13 +16,13 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from '@/components/ui';
-import { useState } from 'react';
-import Link from 'next/link';
+} from "@/components/ui";
+import { useState } from "react";
+import Link from "next/link";
 
 const LoginSchema = z.object({
-  email: z.email('Please enter a valid email'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.email("Please enter a valid email"),
+  password: z.string().min(1, "Password is required"),
 });
 type LoginFormValues = z.infer<typeof LoginSchema>;
 
@@ -35,8 +35,8 @@ export default function LoginPage() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -50,7 +50,7 @@ export default function LoginPage() {
       toast.error(error.message);
       setIsLoggingIn(false);
     } else {
-      router.push('/dashboard');
+      router.push("/dashboard");
     }
   };
 
@@ -106,7 +106,7 @@ export default function LoginPage() {
                 className="w-full"
                 asChild
               >
-                <Link href={'/create-account'}>Create account</Link>
+                <Link href={"/create-account"}>Create account</Link>
               </Button>
             </div>
           </form>

@@ -1,6 +1,6 @@
-import { setToken } from '@/store/auth-slice';
-import { store } from '@/store';
-import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+import { setToken } from "@/store/auth-slice";
+import { store } from "@/store";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 
 export const supabase = createPagesBrowserClient();
 
@@ -9,9 +9,9 @@ export const supabase = createPagesBrowserClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  store.dispatch(setToken(session?.access_token ?? ''));
+  store.dispatch(setToken(session?.access_token ?? ""));
 })();
 
 supabase.auth.onAuthStateChange((_event, session) => {
-  store.dispatch(setToken(session?.access_token ?? ''));
+  store.dispatch(setToken(session?.access_token ?? ""));
 });

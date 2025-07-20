@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class UpdateLessonRequest {
   @IsString()
@@ -14,8 +14,12 @@ export class UpdateLessonRequest {
   @IsBoolean()
   readonly isComplete: boolean | undefined;
 
-  constructor(id: string, name: string | undefined, isComplete: boolean | undefined) {
-    this.id = id
+  constructor(
+    id: string,
+    name: string | undefined,
+    isComplete: boolean | undefined
+  ) {
+    this.id = id;
     this.name = name;
     this.isComplete = isComplete;
   }

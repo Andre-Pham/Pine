@@ -1,8 +1,8 @@
-import { JsonController, Get, Post, Body } from 'routing-controllers';
-import { TaskRepository } from '@pine/domain';
-import { TaskContract } from '@pine/contracts';
+import { JsonController, Get, Post, Body } from "routing-controllers";
+import { TaskRepository } from "@pine/domain";
+import { TaskContract } from "@pine/contracts";
 
-@JsonController('/tasks')
+@JsonController("/tasks")
 export class TaskController {
   private repo = new TaskRepository();
 
