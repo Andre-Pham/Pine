@@ -3,8 +3,8 @@ import "./global.css";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "TODO",
-  description: "TODO",
+  title: "Pine LMS",
+  description: "A simplified LMS scenario.",
 };
 
 export default function RootLayout({
