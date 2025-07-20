@@ -5,6 +5,11 @@ A basic full-stack application representing a simplified LMS scenario.
 
 #### Getting started
 
+Add your supabase details to:
+
+* `apps/api/.env.local`
+* `apps/frontend/.env.local`
+
 Build the project.
 
 *In the root of the project:*
@@ -29,7 +34,7 @@ npm run dev
 npm run dev
 ```
 
-The app will now be running on http://localhost:3001/.
+The app will now be running.
 
 #### Misc
 
