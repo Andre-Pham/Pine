@@ -23,9 +23,9 @@ export default [
         {
           ignorePattern: "pragma|eslint|jscs|istanbul",
           ignoreConsecutiveComments: true,
-          ignoreInlineComments: false
-        }
-      ]
+          ignoreInlineComments: false,
+        },
+      ],
     },
   },
 ];

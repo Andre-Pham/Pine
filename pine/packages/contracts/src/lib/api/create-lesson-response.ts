@@ -2,7 +2,7 @@ import { Type } from "class-transformer";
 
 export class CreateLessonResponse {
   readonly id: string;
-  
+
   readonly userId: string;
 
   readonly name: string;
