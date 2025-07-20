@@ -86,7 +86,7 @@ export default function DashboardPage() {
                 <CardTitle>{lesson.name}</CardTitle>
                 <CardDescription>
                   Created{' '}
-                  {format(new Date(lesson.createdAt), 'do MMMM, h:mm a')}
+                  {format(new Date(lesson.createdAt), 'd MMMM, h:mm a')}
                 </CardDescription>
                 <CardAction>
                   <Button
