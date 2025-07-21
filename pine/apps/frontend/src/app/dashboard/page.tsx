@@ -68,7 +68,7 @@ export default function DashboardPage() {
     <div className="max-w-4xl mx-auto my-32">
       <div className="flex justify-between flex-wrap mx-8 gap-2">
         <h1 className="text-4xl font-bold">Lessons dashboard</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <CreateLessonDialog />
           <Button onClick={logout} isLoading={isLoggingOut}>
             Logout
@@ -81,7 +81,7 @@ export default function DashboardPage() {
       ) : (
         <div className="mt-6 flex flex-col gap-4 mx-8">
           {lessons.map((lesson) => (
-            <Card key={lesson.id} className="gap-4">
+            <Card key={lesson.id} className="gap-4 min-w-max">
               <CardHeader>
                 <CardTitle>{lesson.name}</CardTitle>
                 <CardDescription>
@@ -133,7 +133,7 @@ export default function DashboardPage() {
 
       {!isLessonsLoading && lessons.length === 0 ? (
         <div className="flex flex-col text-center justify-center mx-8 bg-slate-50 rounded-lg h-32">
-          <p className="text-gray-400">Your lessons will appear here</p>
+          <p className="text-gray-400 mx-4">Your lessons will appear here</p>
         </div>
       ) : null}
     </div>

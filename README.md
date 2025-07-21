@@ -50,3 +50,26 @@ npm run lint
 npm run prettier
 ```
 
+#### Database
+
+Schema:
+
+```postgresql
+CREATE TABLE lesson(
+    id UUID NOT NULL,
+    user_id UUID NOT NULL,
+    lesson_name VARCHAR NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL,
+    completed_at TIMESTAMPTZ,
+    deleted_at TIMESTAMPTZ,
+    CONSTRAINT lesson_pk PRIMARY KEY (id)
+);
+```
+
+Sample data:
+
+```postgresql
+INSERT INTO lesson (id, user_id, lesson_name, created_at, completed_at, deleted_at) 
+VALUES (gen_random_uuid(), gen_random_uuid(), 'My lesson', NOW(), NULL, NULL);
+```
+
