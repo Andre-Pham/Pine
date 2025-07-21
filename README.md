@@ -89,6 +89,7 @@ This application is a demonstration of how a basic LMS scenario could be impleme
 * Staging and production configs so the app could actually be published
 * CI/CD
 * RLS
+* Switch from `@supabase/auth-helpers-react` to its successor `@supabase/ssr`
 * A proper design system and accompanying components and styles
 * Wrapper and adapter packages, e.g. an adapter package for Supabase and utilities like `generateUuid` so you can swap out packages if desired
 * I'd setup the `domain` and `contracts` (and future) packages so be buildable so they can be built independently (I think a lot of the monorepo configuration could be cleaned up in general)
